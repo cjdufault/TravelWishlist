@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Travel Wishlist</title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body>
+  
+  <h1>Travel Wishlist</h1>
+  
+  <form method="POST" action="{% url 'place_list' %}">
+    {% csrf_token %}
+    {{ new_place_form }}
+    <button type="submit">Add</button>
+  </form>
+  
+  {% for place in places %}
+  <div>
+    {{ place.name }}
+  </div>
+  
+  {% empty %}
+    <p>You have no places in your wishlist</p>
+  {% endfor %}
+  
+  </body>
+</html>

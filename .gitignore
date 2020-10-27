@@ -1,3 +1,6 @@
 env
-*/__pycache__
 wishlist/wishlist/__pycache__
+wishlist/travel_wishlist/__pycache__
+wishlist/travel_wishlist/migrations/__pycache__
+
+
