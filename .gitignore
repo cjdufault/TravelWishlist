@@ -1,6 +1,3 @@
 env
-wishlist/wishlist/__pycache__
-wishlist/travel_wishlist/__pycache__
-wishlist/travel_wishlist/migrations/__pycache__
-
-
+__pycache__
+*.pyc

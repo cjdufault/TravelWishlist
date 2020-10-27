@@ -1,7 +1,6 @@
 <html>
   <head>
     <title>Travel Wishlist</title>
-    <meta content="">
     <style></style>
   </head>
   <body>
@@ -17,11 +16,18 @@
   {% for place in places %}
   <div>
     {{ place.name }}
+    
+    <form method="POST" action="{% url 'place_was_visited' place.pk %}">
+      {% csrf_token %}
+      <button type="submit">Visited!</button>
+    </form>
   </div>
   
   {% empty %}
     <p>You have no places in your wishlist</p>
   {% endfor %}
+  
+  <a href="{% url 'places_visited' %}">Places you've visited</a>
   
   </body>
 </html>
