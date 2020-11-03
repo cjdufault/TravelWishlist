@@ -1,0 +1,48 @@
+{% extends 'travel_wishlist/base.html' %}
+{% load static %}
+{% block content %}
+
+<h2>{{ place.name }}</h2>
+
+{% if place.visited %}
+
+  <p>You have visited {{ place.name }}.</p>
+  
+  <h3>Notes</h3>
+  <p>{{ place.notes | default:"No Notes" }}</p>
+  
+  <h3>Date Visited</h3>
+  <p>{{ place.date_visited | default:"Date visited not set" }}</p>
+  
+  <h3>Photo</h3>
+  {% if place.photo %}
+    <img src="{{ place.photo.url }}"></img>
+  {% else %}
+    <p>No photo uploaded</p>
+  {% endif %}
+  
+  <form method="POST" action="{% url 'place_details' place.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ review_form.as_p }} 
+    <button type="submit">Save Review</button>
+  </form>
+  
+{% else %}
+
+  <p>You haven't visited {{ place.name }}.</p>
+  
+  <form class="visited-form" method="POST" action="{% url 'place_was_visited' place.pk %}">
+    {% csrf_token %}
+    <button id="visited-button-{{ place.pk }}" type="submit">Visited!</button>
+  </form>
+  
+{% endif %}
+
+<form method="POST" action="{% url 'delete_place' place.pk %}">
+  {% csrf_token %}
+  <button class="delete" type="submit">Delete</button>
+</form>
+
+<script src="{% static 'js/confirm_delete.js' %}"></script>
+
+{% endblock %}
