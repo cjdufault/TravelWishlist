@@ -27,6 +27,15 @@ class Place(models.Model):
     def delete_photo(self, photo):
         if default_storage.exists(photo.name):
             default_storage.delete(photo.name)
+          
+    # override model's delete method
+    def delete(self, *args, **kwargs):
+        # delete any photos that have been uploaded
+        if self.photo:
+            self.delete_photo(self.photo)
+        
+        # run model's delete method
+        super().delete(*args, **kwargs)
     
     def __str__(self):
         photo_str = self.photo.url if self.photo else 'no photo'
